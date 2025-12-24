@@ -1,51 +1,59 @@
 # appsec-binary
 
-Static security analysis orchestrator for **APK** and **IPA** binaries.
+**appsec-binary** is a command-line static security analysis orchestrator for **Android (APK/AAB/XAPK)** and **iOS (IPA)** application binaries.
 
-This tool is designed to outperform single-engine scanners by running multiple analyzers (where available) and producing a **normalized**, **deduplicated**, **color-coded** console summary plus machine-readable outputs.
+It is designed to go beyond single-engine scanners by **combining multiple best-in-class static analysis tools**, normalizing findings, and presenting **clear, color-coded security results** suitable for professional assessments.
 
-> Scope: **Static analysis only**. It will not “prove” runtime controls (SSL pinning effectiveness, jailbreak/root detection behavior, auth/session issues). Use dynamic testing for those.
-
----
-
-## Features
-
-- One command: analyze an `APK/AAB/XAPK` or `IPA`
-- Runs multiple engines (best-effort, based on what is installed):
-  - **MobSF** (Docker) optional
-  - Android: unzip + `apktool` + `jadx` + `apkleaks` + `quark` (optional)
-  - iOS: unzip + `codesign` entitlements extraction (macOS) optional
-  - **Secret scanning** (pattern-based MVP)
-- Outputs:
-  - `report.json` (normalized findings)
-  - `summary.txt` (top findings)
-  - `raw/` (engine outputs)
-- Console output is **severity color-coded**
-- `--verbose` shows executed commands and debugging logs
+> Scope: Static analysis only. Runtime behaviors (SSL pinning effectiveness, jailbreak/root detection, session handling, etc.) require dynamic testing.
 
 ---
 
-## Requirements
+## Key Capabilities
 
-- Python 3.10+
-- Optional engines:
-  - Docker (for MobSF)
-  - Android: `apktool`, `jadx`, `apkleaks`, `quark`
-  - iOS: `codesign` (macOS only)
+- One command to analyze mobile app binaries
+- Multi-engine static analysis (best-effort based on installed tools)
+- Android and iOS support
+- Hardcoded secret detection
+- Normalized JSON output for reporting and automation
+- Color-coded console output by severity
+- Verbose mode for full traceability
 
 ---
 
-## Install
+## Engines Used (Optional, Auto-Detected)
+
+### Common
+- MobSF (Docker-based, optional)
+- Custom secret scanner (pattern-based MVP)
+
+### Android
+- apktool
+- jadx
+- APKLeaks
+- Quark Engine
+
+### iOS
+- IPA extraction
+- codesign entitlements analysis (macOS only)
+
+Missing tools are skipped gracefully.
+
+---
+
+## Installation
+
+See [`docs/installation.md`](docs/installation.md)
+
+---
+
+## Usage
 
 ```bash
-git clone https://github.com/<your-username>/appsec-binary.git
-cd appsec-binary
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
+python3 appsec_binary.py /path/to/app.apk
+python3 appsec_binary.py /path/to/app.ipa
 
-MobSF (optional)
+# Verbose output
+python3 appsec_binary.py /path/to/app.apk -v
 
-Set API key:
-
-export MOBSF_API_KEY="YOUR_KEY"
+# Skip MobSF
+python3 appsec_binary.py /path/to/app.apk --no-mobsf
