@@ -44,3 +44,8 @@ python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 
+MobSF (optional)
+
+Set API key:
+
+export MOBSF_API_KEY="YOUR_KEY"
