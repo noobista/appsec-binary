@@ -1,0 +1,81 @@
+
+---
+
+# `docs/engines.md`
+
+```markdown
+# Analysis Engines
+
+This document explains what each engine contributes and how findings should be interpreted.
+
+---
+
+## MobSF
+
+- Broad static heuristics
+- Manifest / plist analysis
+- Crypto, network, permissions checks
+- Produces many findings → requires triage
+
+Confidence: **Medium**  
+Use as a signal generator, not ground truth.
+
+---
+
+## apktool (Android)
+
+- Decodes AndroidManifest.xml
+- Extracts resources and configuration
+
+High value for:
+- Exported components
+- Permissions
+- Network security config
+
+---
+
+## jadx (Android)
+
+- Java/Kotlin decompilation
+- Enables manual and automated code review
+
+High value for:
+- Hardcoded logic
+- Insecure API usage
+- Debug code
+
+---
+
+## APKLeaks (Android)
+
+- Pattern-based extraction of secrets and endpoints
+
+High false-positive rate, but good coverage.
+
+---
+
+## Quark Engine (Android)
+
+- Rule-based behavioral analysis
+- Identifies suspicious capability combinations
+
+Best used for threat modeling support.
+
+---
+
+## iOS Entitlements (codesign)
+
+- Extracts app entitlements
+- Identifies risky capabilities (e.g. get-task-allow)
+
+macOS only.
+
+---
+
+## Secret Scanner (Built-in)
+
+- Pattern-based detection of API keys, tokens, JWTs
+- Scans decompiled and extracted assets
+
+Confidence: **High**  
+Hardcoded secrets are always a valid finding.
