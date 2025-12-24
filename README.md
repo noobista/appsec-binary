@@ -60,7 +60,3 @@ Missing tools are skipped cleanly.
 
 ---
 
-## Screenshots
-
-> Add real screenshots once you run the tool.
-
