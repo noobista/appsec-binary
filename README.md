@@ -59,7 +59,7 @@ python3 appsec_binary.py /path/to/app.apk -v
 python3 appsec_binary.py /path/to/app.apk --no-mobsf
 
 
-# Output
+## Output
 
 Each run produces:
 
@@ -70,11 +70,11 @@ appsec_reports/<appname>_<hash>/
 See docs/output.md
  for details.
 
-# Limitations
+## Limitations
 Static analysis only
 Findings require validation
 iOS entitlements extraction requires macOS
 Not a replacement for manual testing
 
-# Legal / Ethical Use
+## Legal / Ethical Use
 Use this tool only on applications you own or are explicitly authorized to test.
