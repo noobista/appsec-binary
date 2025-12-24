@@ -1,30 +1,50 @@
 # appsec-binary
 
-**appsec-binary** is a command-line static security analysis orchestrator for **Android (APK/AAB/XAPK)** and **iOS (IPA)** application binaries.
+![Python](https://img.shields.io/badge/python-3.10%2B-blue)
+![CI](https://github.com/<your-username>/appsec-binary/actions/workflows/ci.yml/badge.svg)
+![License](https://img.shields.io/badge/license-MIT-green)
+![Platform](https://img.shields.io/badge/platform-Android%20%7C%20iOS-lightgrey)
 
-It is designed to go beyond single-engine scanners by **combining multiple best-in-class static analysis tools**, normalizing findings, and presenting **clear, color-coded security results** suitable for professional assessments.
+**appsec-binary** is a command-line **static mobile application security analysis orchestrator** for **Android (APK/AAB/XAPK)** and **iOS (IPA)** binaries.
 
-> Scope: Static analysis only. Runtime behaviors (SSL pinning effectiveness, jailbreak/root detection, session handling, etc.) require dynamic testing.
+It combines multiple best-in-class static analysis tools, correlates findings, and presents **clear, color-coded security output** suitable for professional assessments, audits, and CI pipelines.
+
+> This tool is designed for **security engineers**, **red teamers**, and **mobile app security testers** who want **signal over noise**.
 
 ---
 
-## Key Capabilities
+## Why appsec-binary exists
 
-- One command to analyze mobile app binaries
-- Multi-engine static analysis (best-effort based on installed tools)
+Most tools:
+- Run a single engine
+- Dump hundreds of low-quality findings
+- Provide little context or correlation
+
+**appsec-binary**:
+- Orchestrates **multiple engines**
+- Normalizes output
+- Highlights **real attack surface**
+- Produces outputs that are actually usable in reports
+
+---
+
+## Core Features
+
+- One command to analyze a mobile app binary
+- Multi-engine static analysis (auto-detects installed tools)
 - Android and iOS support
 - Hardcoded secret detection
-- Normalized JSON output for reporting and automation
-- Color-coded console output by severity
-- Verbose mode for full traceability
+- Severity-based, color-coded console output
+- Normalized JSON output for automation
+- Verbose mode for audit traceability
 
 ---
 
-## Engines Used (Optional, Auto-Detected)
+## Supported Engines
 
 ### Common
-- MobSF (Docker-based, optional)
-- Custom secret scanner (pattern-based MVP)
+- MobSF (Docker, optional)
+- Built-in secret scanner
 
 ### Android
 - apktool
@@ -34,47 +54,13 @@ It is designed to go beyond single-engine scanners by **combining multiple best-
 
 ### iOS
 - IPA extraction
-- codesign entitlements analysis (macOS only)
+- Entitlements analysis (`codesign`, macOS only)
 
-Missing tools are skipped gracefully.
-
----
-
-## Installation
-
-See [`docs/installation.md`](docs/installation.md)
+Missing tools are skipped cleanly.
 
 ---
 
-## Usage
+## Screenshots
 
-```bash
-python3 appsec_binary.py /path/to/app.apk
-python3 appsec_binary.py /path/to/app.ipa
+> Add real screenshots once you run the tool.
 
-# Verbose output
-python3 appsec_binary.py /path/to/app.apk -v
-
-# Skip MobSF
-python3 appsec_binary.py /path/to/app.apk --no-mobsf
-
-
-## Output
-
-Each run produces:
-
-appsec_reports/<appname>_<hash>/
-├─ report.json
-├─ summary.txt
-└─ raw/
-See docs/output.md
- for details.
-
-## Limitations
-Static analysis only
-Findings require validation
-iOS entitlements extraction requires macOS
-Not a replacement for manual testing
-
-## Legal / Ethical Use
-Use this tool only on applications you own or are explicitly authorized to test.
